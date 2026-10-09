@@ -165,6 +165,7 @@
           "address": {
             "anyOf": [
               {
+                "maxLength": 200,
                 "type": "string"
               },
               {
@@ -177,6 +178,7 @@
           "city": {
             "anyOf": [
               {
+                "maxLength": 50,
                 "type": "string"
               },
               {
@@ -189,6 +191,7 @@
           "country": {
             "anyOf": [
               {
+                "maxLength": 50,
                 "type": "string"
               },
               {
@@ -201,6 +204,7 @@
           "email": {
             "description": "Customer's email address",
             "format": "email",
+            "maxLength": 100,
             "title": "Email",
             "type": "string"
           },
@@ -219,6 +223,7 @@
           },
           "name": {
             "description": "Customer's full name",
+            "maxLength": 255,
             "title": "Name",
             "type": "string"
           },
@@ -230,6 +235,7 @@
           "postcode": {
             "anyOf": [
               {
+                "maxLength": 20,
                 "type": "string"
               },
               {
@@ -972,6 +978,22 @@
             "maxLength": 255,
             "title": "Cancel Url",
             "type": "string"
+          },
+          "checkout_source": {
+            "anyOf": [
+              {
+                "enum": [
+                  "WEBSITE_CHECKOUT",
+                  "API_INTEGRATION"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional collection attribution for authenticated website or API checkout.",
+            "title": "Checkout Source"
           },
           "currency": {
             "description": "Three-letter currency code (e.g., BDT, USD, EUR)",
