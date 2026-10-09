@@ -31,7 +31,7 @@ In Claude Code, use `/moneybag-checkout` with the same request. Other clients ca
 | [moneybag-emi](skills/moneybag-emi/SKILL.md) | EMI discovery and charge calculation |
 | [moneybag-integration-review](skills/moneybag-integration-review/SKILL.md) | Security and payment correctness review |
 
-Each package contains instructions, supporting references, and the reviewed public sandbox OpenAPI contract. Contract version: `2.0.0`; SHA-256: `34dbfe060318e05a382654a81a660e816a3402d568091a0f9fba28e9bbe15a9e`. The packages contain no credentials or account permissions. Configure sandbox keys only in trusted server code, and never use redirects as payment proof.
+Each package contains instructions, supporting references, and the reviewed public sandbox OpenAPI contract. Contract version: `2.0.0`; SHA-256: `094720c953e300d050a4861f0c64528522ac5879f954e6c2073a5bca00bfb878`. The packages contain no credentials or account permissions. Configure sandbox keys only in trusted server code, and never use redirects as payment proof.
 
 Add `--skill moneybag-checkout` to install one package, or `--global` for installation across projects. Run the install command again to fetch updates.
 
