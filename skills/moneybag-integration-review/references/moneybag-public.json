@@ -1,0 +1,4303 @@
+{
+  "components": {
+    "schemas": {
+      "BillingHistoryResponse": {
+        "description": "Schema for billing history response",
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "billing_date": {
+            "title": "Billing Date",
+            "type": "string"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "invoice": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceBasicInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "next_retry_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Retry At"
+          },
+          "payment_session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Session Id"
+          },
+          "retry_count": {
+            "title": "Retry Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "subscription_uuid": {
+            "title": "Subscription Uuid",
+            "type": "string"
+          },
+          "transaction_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transaction Id"
+          },
+          "uuid": {
+            "title": "Uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "uuid",
+          "subscription_uuid",
+          "billing_date",
+          "amount",
+          "currency",
+          "status",
+          "payment_session_id",
+          "transaction_id",
+          "failure_reason",
+          "retry_count",
+          "next_retry_at",
+          "created_at"
+        ],
+        "title": "BillingHistoryResponse",
+        "type": "object"
+      },
+      "CancelResponse": {
+        "description": "Response for payment session cancellation",
+        "properties": {
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "redirect_url": {
+            "title": "Redirect Url",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "status": {
+            "default": "CANCELLED",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "redirect_url",
+          "session_id",
+          "order_id"
+        ],
+        "title": "CancelResponse",
+        "type": "object"
+      },
+      "CheckoutResponse": {
+        "properties": {
+          "checkout_url": {
+            "title": "Checkout Url",
+            "type": "string"
+          },
+          "expires_at": {
+            "title": "Expires At",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "checkout_url",
+          "session_id",
+          "expires_at"
+        ],
+        "title": "CheckoutResponse",
+        "type": "object"
+      },
+      "Customer": {
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer's address",
+            "title": "Address"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer's city",
+            "title": "City"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer's country",
+            "title": "Country"
+          },
+          "email": {
+            "description": "Customer's email address",
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional customer-specific data",
+            "title": "Metadata"
+          },
+          "name": {
+            "description": "Customer's full name",
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "description": "Customer's phone number",
+            "title": "Phone",
+            "type": "string"
+          },
+          "postcode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer's postal code",
+            "title": "Postcode"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer's state/division/province (e.g. 'Dhaka', 'Chattogram'). Optional. Forwarded to processors that require a billing division; supplying a real value improves AVS accuracy and therefore risk and chargeback outcomes.",
+            "title": "State"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone"
+        ],
+        "title": "Customer",
+        "type": "object"
+      },
+      "CustomerBasicInfo": {
+        "description": "Basic customer information",
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "phone"
+        ],
+        "title": "CustomerBasicInfo",
+        "type": "object"
+      },
+      "EMIBankOption": {
+        "description": "EMI options for a specific bank",
+        "properties": {
+          "bank_name": {
+            "description": "Bank/Provider name",
+            "title": "Bank Name",
+            "type": "string"
+          },
+          "tenures": {
+            "description": "Available tenure options",
+            "items": {
+              "$ref": "#/components/schemas/EMITenureOption"
+            },
+            "title": "Tenures",
+            "type": "array"
+          }
+        },
+        "required": [
+          "bank_name",
+          "tenures"
+        ],
+        "title": "EMIBankOption",
+        "type": "object"
+      },
+      "EMICalculateData": {
+        "description": "Data model for EMI calculation response for /payments/emi-amounts API",
+        "properties": {
+          "emi_payment_options": {
+            "description": "List of EMI payment options with payment options (transformed format)",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Emi Payment Options",
+            "type": "array"
+          },
+          "merchant_bleeding": {
+            "description": "Whether merchant pays service charges",
+            "title": "Merchant Bleeding",
+            "type": "boolean"
+          },
+          "order_amount": {
+            "description": "Order amount requested",
+            "title": "Order Amount",
+            "type": "string"
+          }
+        },
+        "required": [
+          "order_amount",
+          "merchant_bleeding",
+          "emi_payment_options"
+        ],
+        "title": "EMICalculateData",
+        "type": "object"
+      },
+      "EMICalculateRequest": {
+        "description": "Request schema for calculating EMI options with charges",
+        "example": {
+          "emi_configuration_ids": [
+            "emif336d0bcb841465b8045024475c079dd"
+          ],
+          "order_amount": "12000.00"
+        },
+        "examples": [
+          {
+            "emi_configuration_ids": [
+              "emif336d0bcb841465b8045024475c079dd"
+            ],
+            "order_amount": "12000.00"
+          },
+          {
+            "emi_configuration_ids": [
+              "emif336d0bcb841465b8045024475c079dd",
+              "emia1b2c3d4e5f67890abcdef1234567890"
+            ],
+            "order_amount": "12000.00"
+          }
+        ],
+        "properties": {
+          "emi_configuration_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional list of EMI configuration IDs to filter. If provided, only these configurations will be returned. If not provided, all eligible configurations will be returned.",
+            "title": "Emi Configuration Ids"
+          },
+          "order_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "description": "Order amount to calculate EMI for",
+            "title": "Order Amount"
+          }
+        },
+        "required": [
+          "order_amount"
+        ],
+        "title": "EMICalculateRequest",
+        "type": "object"
+      },
+      "EMICalculateResponse": {
+        "description": "Response for EMI calculation API",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EMICalculateData"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EMICalculateData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "EMICalculateResponse",
+        "type": "object"
+      },
+      "EMIOptionsData": {
+        "description": "Data structure for EMI options",
+        "example": {
+          "emi_options": [
+            {
+              "bank_name": "FlexiPay Financial",
+              "tenures": [
+                {
+                  "interest_rate": "12.00",
+                  "tenure": "3",
+                  "uuid": "f336d0bc-b841-465b-8045-024475c079dd"
+                },
+                {
+                  "interest_rate": "14.00",
+                  "tenure": "6",
+                  "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                }
+              ]
+            },
+            {
+              "bank_name": "QuickEMI Bank",
+              "tenures": [
+                {
+                  "interest_rate": "10.00",
+                  "tenure": "3",
+                  "uuid": "11111111-2222-3333-4444-555555555555"
+                }
+              ]
+            }
+          ]
+        },
+        "properties": {
+          "emi_options": {
+            "description": "EMI options grouped by bank",
+            "items": {
+              "$ref": "#/components/schemas/EMIBankOption"
+            },
+            "title": "Emi Options",
+            "type": "array"
+          }
+        },
+        "title": "EMIOptionsData",
+        "type": "object"
+      },
+      "EMIOptionsResponse": {
+        "description": "Response for EMI options API - inherits from BaseResponse for consistency",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EMIOptionsData"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EMIOptionsData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "EMIOptionsResponse",
+        "type": "object"
+      },
+      "EMITenureOption": {
+        "description": "Individual EMI tenure option",
+        "properties": {
+          "emi_configuration_id": {
+            "description": "Unique identifier for the EMI configuration",
+            "title": "Emi Configuration Id",
+            "type": "string"
+          },
+          "interest_rate": {
+            "description": "Interest rate percentage",
+            "title": "Interest Rate",
+            "type": "string"
+          },
+          "tenure": {
+            "description": "EMI tenure in months",
+            "title": "Tenure",
+            "type": "string"
+          }
+        },
+        "required": [
+          "emi_configuration_id",
+          "tenure",
+          "interest_rate"
+        ],
+        "title": "EMITenureOption",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "InvoiceBasicInfo": {
+        "description": "Basic invoice information for billing history",
+        "properties": {
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due Date"
+          },
+          "invoice_id": {
+            "title": "Invoice Id",
+            "type": "string"
+          },
+          "invoice_status": {
+            "title": "Invoice Status",
+            "type": "string"
+          },
+          "payable_amount": {
+            "title": "Payable Amount",
+            "type": "number"
+          },
+          "uuid": {
+            "title": "Uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "uuid",
+          "invoice_id",
+          "payable_amount",
+          "invoice_status",
+          "due_date",
+          "created_at"
+        ],
+        "title": "InvoiceBasicInfo",
+        "type": "object"
+      },
+      "InvoiceDetailsResponse": {
+        "description": "Response schema for invoice details from payment router",
+        "properties": {
+          "all_total": {
+            "title": "All Total",
+            "type": "number"
+          },
+          "business_name": {
+            "title": "Business Name",
+            "type": "string"
+          },
+          "customer": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customer"
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due Date"
+          },
+          "gross_discount": {
+            "title": "Gross Discount",
+            "type": "number"
+          },
+          "invoice_id": {
+            "title": "Invoice Id",
+            "type": "string"
+          },
+          "invoice_items": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Invoice Items",
+            "type": "array"
+          },
+          "invoice_status": {
+            "title": "Invoice Status",
+            "type": "string"
+          },
+          "invoice_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Type"
+          },
+          "merchant_logo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Merchant Logo"
+          },
+          "payable_amount": {
+            "title": "Payable Amount",
+            "type": "number"
+          },
+          "uuid": {
+            "title": "Uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "invoice_id",
+          "uuid",
+          "business_name",
+          "due_date",
+          "all_total",
+          "gross_discount",
+          "payable_amount",
+          "invoice_status",
+          "customer",
+          "invoice_items"
+        ],
+        "title": "InvoiceDetailsResponse",
+        "type": "object"
+      },
+      "OrderItem": {
+        "properties": {
+          "convenience_fee": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Convenience fee (decimal value)",
+            "title": "Convenience Fee"
+          },
+          "discount_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Discount amount (decimal value)",
+            "title": "Discount Amount"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional product-specific data",
+            "title": "Metadata"
+          },
+          "net_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Net amount after adding VAT and fees, subtracting discounts",
+            "title": "Net Amount"
+          },
+          "product_category": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Product category (e.g., Electronic, topup)",
+            "title": "Product Category"
+          },
+          "product_name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Product name",
+            "title": "Product Name"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Product quantity",
+            "title": "Quantity"
+          },
+          "sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Product SKU",
+            "title": "Sku"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Unit price of the product",
+            "title": "Unit Price"
+          },
+          "vat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "VAT amount (decimal value)",
+            "title": "Vat"
+          }
+        },
+        "title": "OrderItem",
+        "type": "object"
+      },
+      "OrderRequest": {
+        "additionalProperties": false,
+        "cancel_url": "https://example.com/payment/cancel",
+        "currency": "BDT",
+        "customer": {
+          "address": "123 Main Street",
+          "city": "Dhaka",
+          "country": "Bangladesh",
+          "email": "john.doe@example.com",
+          "metadata": {
+            "customer_id": "CUST12345",
+            "loyalty_level": "gold"
+          },
+          "name": "John Doe",
+          "phone": "+8801700000000",
+          "postcode": "1000",
+          "state": "Dhaka"
+        },
+        "fail_url": "https://example.com/payment/fail",
+        "ipn_url": "https://example.com/payment/ipn",
+        "metadata": {
+          "ip_address": "192.168.1.1",
+          "platform": "web",
+          "session_id": "SESSION12345",
+          "source": "web",
+          "user_agent": "Mozilla/5.0"
+        },
+        "order_amount": "1280.00",
+        "order_description": "Online purchase of electronics",
+        "order_id": "TXN12345678",
+        "order_items": [
+          {
+            "convenience_fee": "80.00",
+            "discount_amount": "100.00",
+            "net_amount": "1300.00",
+            "product_category": "Electronic",
+            "product_name": "iPhone 15",
+            "quantity": 1,
+            "sku": "PROD001",
+            "unit_price": "1200.00",
+            "vat": "120.00"
+          },
+          {
+            "convenience_fee": "0",
+            "discount_amount": "0",
+            "net_amount": "1650.00",
+            "product_category": "Electronic",
+            "product_name": "iPhone 15 Pro",
+            "quantity": 1,
+            "sku": "PROD002",
+            "unit_price": "1500.00",
+            "vat": "150.00"
+          }
+        ],
+        "payment_info": {
+          "currency_conversion": false,
+          "requires_emi": false
+        },
+        "properties": {
+          "cancel_url": {
+            "description": "Callback URL if user cancels the transaction",
+            "maxLength": 255,
+            "title": "Cancel Url",
+            "type": "string"
+          },
+          "currency": {
+            "description": "Three-letter currency code (e.g., BDT, USD, EUR)",
+            "title": "Currency",
+            "type": "string"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "fail_url": {
+            "description": "Callback URL if payment failure occurs",
+            "maxLength": 255,
+            "title": "Fail Url",
+            "type": "string"
+          },
+          "ipn_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Instant Payment Notification URL",
+            "title": "Ipn Url"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional order-specific data",
+            "title": "Metadata"
+          },
+          "order_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "description": "Transaction amount between 10.00 and 1000000.00 BDT",
+            "title": "Order Amount"
+          },
+          "order_description": {
+            "description": "Description of the order",
+            "maxLength": 255,
+            "title": "Order Description",
+            "type": "string"
+          },
+          "order_id": {
+            "description": "Unique transaction ID to identify your order",
+            "maxLength": 36,
+            "minLength": 10,
+            "title": "Order Id",
+            "type": "string"
+          },
+          "order_items": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/OrderItem"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "List of items in the order",
+            "title": "Order Items"
+          },
+          "payment_info": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Payment-related information"
+          },
+          "shipping": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Shipping"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Shipping information"
+          },
+          "success_url": {
+            "description": "Callback URL after successful payment",
+            "maxLength": 255,
+            "title": "Success Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "order_id",
+          "currency",
+          "order_amount",
+          "order_description",
+          "success_url",
+          "cancel_url",
+          "fail_url",
+          "customer"
+        ],
+        "shipping": {
+          "address": "123 Main Street",
+          "city": "Dhaka",
+          "country": "Bangladesh",
+          "name": "John Doe",
+          "postcode": "1000"
+        },
+        "success_url": "https://example.com/payment/success",
+        "title": "OrderRequest",
+        "type": "object"
+      },
+      "PaymentInfo": {
+        "properties": {
+          "currency_conversion": {
+            "default": false,
+            "description": "Whether currency conversion is applied",
+            "title": "Currency Conversion",
+            "type": "boolean"
+          },
+          "emi_configuration_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Selected EMI configuration ID (if customer selected specific EMI option)",
+            "title": "Emi Configuration Id"
+          },
+          "emi_payment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Selected merchant payment service for EMI payment. Accepts the public UUID.",
+            "title": "Emi Payment Id"
+          },
+          "requires_emi": {
+            "default": false,
+            "description": "Whether EMI payment options should be shown",
+            "title": "Requires Emi",
+            "type": "boolean"
+          }
+        },
+        "title": "PaymentInfo",
+        "type": "object"
+      },
+      "PaymentResponses": {
+        "description": "Response for merchant representative operations",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CheckoutResponse"
+              },
+              {
+                "$ref": "#/components/schemas/SessionResponse"
+              },
+              {
+                "$ref": "#/components/schemas/ProcessResponse"
+              },
+              {
+                "$ref": "#/components/schemas/VerificationResponse"
+              },
+              {
+                "$ref": "#/components/schemas/InvoiceDetailsResponse"
+              },
+              {
+                "$ref": "#/components/schemas/CancelResponse"
+              },
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/CheckoutResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SessionResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ProcessResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/VerificationResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/InvoiceDetailsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CancelResponse"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "PaymentResponses",
+        "type": "object"
+      },
+      "ProcessResponse": {
+        "properties": {
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "redirect_url": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Url"
+          },
+          "transaction_id": {
+            "title": "Transaction Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "transaction_id"
+        ],
+        "title": "ProcessResponse",
+        "type": "object"
+      },
+      "PublicBillingHistoryListResponse": {
+        "description": "Typed response for GET /payments/subscriptions/{id}/billing-history.",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/BillingHistoryResponse"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PublicSubscriptionPagination"
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "title": "PublicBillingHistoryListResponse",
+        "type": "object"
+      },
+      "PublicSubscriptionListResponse": {
+        "description": "Typed response for GET /payments/subscriptions.",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionResponse"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PublicSubscriptionPagination"
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "title": "PublicSubscriptionListResponse",
+        "type": "object"
+      },
+      "PublicSubscriptionPagination": {
+        "description": "Pagination shape used by merchant-key subscription APIs.",
+        "properties": {
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "pages": {
+            "title": "Pages",
+            "type": "integer"
+          },
+          "per_page": {
+            "title": "Per Page",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "page",
+          "per_page",
+          "total",
+          "pages"
+        ],
+        "title": "PublicSubscriptionPagination",
+        "type": "object"
+      },
+      "PublicSubscriptionPlanListResponse": {
+        "description": "Typed response for GET /payments/subscription-plans.",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionPlanResponse"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PublicSubscriptionPagination"
+          }
+        },
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "title": "PublicSubscriptionPlanListResponse",
+        "type": "object"
+      },
+      "SandboxPaymentCancelData": {
+        "description": "Data model for payment cancel response",
+        "properties": {
+          "redirect_url": {
+            "description": "URL to redirect after cancellation",
+            "title": "Redirect Url",
+            "type": "string"
+          },
+          "transaction_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Associated transaction ID if created",
+            "title": "Transaction Id"
+          }
+        },
+        "required": [
+          "redirect_url"
+        ],
+        "title": "SandboxPaymentCancelData",
+        "type": "object"
+      },
+      "SandboxPaymentCancelRequest": {
+        "description": "Request model for cancelling sandbox payment",
+        "example": {
+          "cancellation_reason": "User cancelled payment",
+          "payment_service_id": "8f14e45f-ceea-467a-9575-9a1b2c3d4e5f",
+          "session_id": "ps_1234567890abcdef"
+        },
+        "properties": {
+          "cancellation_reason": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional reason for cancellation",
+            "title": "Cancellation Reason"
+          },
+          "payment_service_id": {
+            "description": "Merchant payment service UUID from merchant_payment_services.",
+            "title": "Payment Service Id",
+            "type": "string"
+          },
+          "session_id": {
+            "description": "Payment session ID from checkout",
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "payment_service_id"
+        ],
+        "title": "SandboxPaymentCancelRequest",
+        "type": "object"
+      },
+      "SandboxPaymentCancelResponse": {
+        "description": "Response model for payment cancel operation",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SandboxPaymentCancelData"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SandboxPaymentCancelData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "SandboxPaymentCancelResponse",
+        "type": "object"
+      },
+      "SandboxPaymentFailData": {
+        "description": "Data model for payment fail response",
+        "properties": {
+          "redirect_url": {
+            "description": "URL to redirect after failure",
+            "title": "Redirect Url",
+            "type": "string"
+          },
+          "transaction_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Associated transaction ID if created",
+            "title": "Transaction Id"
+          }
+        },
+        "required": [
+          "redirect_url"
+        ],
+        "title": "SandboxPaymentFailData",
+        "type": "object"
+      },
+      "SandboxPaymentFailRequest": {
+        "description": "Request model for failing sandbox payment",
+        "example": {
+          "failure_reason": "Insufficient funds",
+          "payment_service_id": "8f14e45f-ceea-467a-9575-9a1b2c3d4e5f",
+          "session_id": "ps_1234567890abcdef"
+        },
+        "properties": {
+          "failure_reason": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional reason for failure",
+            "title": "Failure Reason"
+          },
+          "payment_service_id": {
+            "description": "Merchant payment service UUID from merchant_payment_services.",
+            "title": "Payment Service Id",
+            "type": "string"
+          },
+          "session_id": {
+            "description": "Payment session ID from checkout",
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "payment_service_id"
+        ],
+        "title": "SandboxPaymentFailRequest",
+        "type": "object"
+      },
+      "SandboxPaymentFailResponse": {
+        "description": "Response model for payment fail operation",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SandboxPaymentFailData"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SandboxPaymentFailData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "SandboxPaymentFailResponse",
+        "type": "object"
+      },
+      "SandboxPaymentProcessData": {
+        "description": "Data model for payment process response",
+        "properties": {
+          "redirect_url": {
+            "description": "URL to redirect for payment completion",
+            "title": "Redirect Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "redirect_url"
+        ],
+        "title": "SandboxPaymentProcessData",
+        "type": "object"
+      },
+      "SandboxPaymentProcessRequest": {
+        "description": "Request model for processing sandbox payment",
+        "example": {
+          "payment_service_id": "8f14e45f-ceea-467a-9575-9a1b2c3d4e5f",
+          "session_id": "ps_1234567890abcdef"
+        },
+        "properties": {
+          "payment_service_id": {
+            "description": "Merchant payment service UUID from merchant_payment_services.",
+            "title": "Payment Service Id",
+            "type": "string"
+          },
+          "session_id": {
+            "description": "Payment session ID from checkout",
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "payment_service_id"
+        ],
+        "title": "SandboxPaymentProcessRequest",
+        "type": "object"
+      },
+      "SandboxPaymentProcessResponse": {
+        "description": "Response model for payment process operation",
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SandboxPaymentProcessData"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SandboxPaymentProcessData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "SandboxPaymentProcessResponse",
+        "type": "object"
+      },
+      "SelectedEMIConfiguration": {
+        "description": "EMI configuration and payment service pre-selected at checkout time.",
+        "properties": {
+          "emi_configuration_id": {
+            "description": "Selected EMI configuration ID",
+            "title": "Emi Configuration Id",
+            "type": "string"
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Public merchant payment service UUID, matches payment_options[].service_id",
+            "title": "Service Id"
+          }
+        },
+        "required": [
+          "emi_configuration_id"
+        ],
+        "title": "SelectedEMIConfiguration",
+        "type": "object"
+      },
+      "SessionResponse": {
+        "properties": {
+          "bleeding": {
+            "default": false,
+            "description": "Whether merchant pays service charges (bleeding)",
+            "title": "Bleeding",
+            "type": "boolean"
+          },
+          "business_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Name"
+          },
+          "can_return_to_merchant": {
+            "default": false,
+            "description": "Whether the checkout may offer a 'return to merchant' action — true when the merchant's stored return URL passes moneybag.utils.redirect_guard. Deliberately a BOOLEAN, not the URL: this response is fetched by the hosted checkout from the browser, so any URL here would be readable by page scripts, devtools, error reporters and anyone holding the checkout link, and merchant cancel URLs routinely carry order tokens in their query string. The destination itself is never serialised — the checkout links to GET /payments/sessions/{session_id}/return, which resolves and validates it server-side at click time.",
+            "title": "Can Return To Merchant",
+            "type": "boolean"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "customer": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customer"
+          },
+          "emi_checkout_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Selected EMI configuration UUID if pre-selected",
+            "title": "Emi Checkout Id"
+          },
+          "emi_fee_bleeding": {
+            "default": false,
+            "description": "Whether merchant pays EMI fees (emi_fee_bleeding)",
+            "title": "Emi Fee Bleeding",
+            "type": "boolean"
+          },
+          "emi_payment_options": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "EMI payment options with calculations",
+            "title": "Emi Payment Options"
+          },
+          "expires_at": {
+            "title": "Expires At",
+            "type": "string"
+          },
+          "merchant_logo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Merchant Logo"
+          },
+          "order_amount": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Order Amount",
+            "type": "string"
+          },
+          "order_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Description"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "payment_options": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Payment Options",
+            "type": "array"
+          },
+          "requires_emi": {
+            "default": false,
+            "description": "Whether EMI payment options are available",
+            "title": "Requires Emi",
+            "type": "boolean"
+          },
+          "selected_emi_configuration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SelectedEMIConfiguration"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Selected EMI configuration with emi_configuration_id and service_id"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "order_id",
+          "order_amount",
+          "currency",
+          "expires_at",
+          "status",
+          "payment_options"
+        ],
+        "title": "SessionResponse",
+        "type": "object"
+      },
+      "Shipping": {
+        "properties": {
+          "address": {
+            "description": "Shipping address line 1",
+            "title": "Address",
+            "type": "string"
+          },
+          "city": {
+            "description": "Shipping city",
+            "title": "City",
+            "type": "string"
+          },
+          "country": {
+            "description": "Shipping country",
+            "title": "Country",
+            "type": "string"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional shipping-specific data",
+            "title": "Metadata"
+          },
+          "name": {
+            "description": "Shipping recipient's full name",
+            "title": "Name",
+            "type": "string"
+          },
+          "postcode": {
+            "description": "Shipping postal code",
+            "title": "Postcode",
+            "type": "string"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Shipping state/province",
+            "title": "State"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "city",
+          "postcode",
+          "country"
+        ],
+        "title": "Shipping",
+        "type": "object"
+      },
+      "SubscriptionBillingType": {
+        "description": "When the customer is billed relative to the service period.\n\nPREPAID  — advance billing: customer pays at the start of a period for the\n           upcoming period (e.g. OTT/Netflix). Service is granted after payment.\nPOSTPAID — arrears billing: customer is billed at the end of a period for the\n           period just consumed (e.g. internet/utility bills). Service is\n           granted first, billed after.",
+        "enum": [
+          "PREPAID",
+          "POSTPAID"
+        ],
+        "title": "SubscriptionBillingType",
+        "type": "string"
+      },
+      "SubscriptionCancelRequest": {
+        "description": "Schema for cancelling a subscription",
+        "properties": {
+          "cancel_at_period_end": {
+            "default": false,
+            "description": "Cancel at end of current period",
+            "title": "Cancel At Period End",
+            "type": "boolean"
+          },
+          "cancellation_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Reason for cancellation",
+            "title": "Cancellation Reason"
+          }
+        },
+        "title": "SubscriptionCancelRequest",
+        "type": "object"
+      },
+      "SubscriptionCheckoutRequest": {
+        "description": "Schema for creating a checkout session for a subscription",
+        "properties": {
+          "cancel_url": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Callback URL if user cancels (uses merchant config default if not provided)",
+            "title": "Cancel Url"
+          },
+          "fail_url": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Callback URL if payment fails (uses merchant config default if not provided)",
+            "title": "Fail Url"
+          },
+          "ipn_url": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Instant Payment Notification URL (uses merchant config default if not provided)",
+            "title": "Ipn Url"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional checkout metadata",
+            "title": "Metadata"
+          },
+          "success_url": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Callback URL after successful payment (uses merchant config default if not provided)",
+            "title": "Success Url"
+          }
+        },
+        "title": "SubscriptionCheckoutRequest",
+        "type": "object"
+      },
+      "SubscriptionCreate": {
+        "description": "Schema for creating a subscription\n\nProvide either `customer_uuid` for an existing customer of yours, or a\n`customer` object to get-or-create one by phone/email.",
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 999999.9999,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override plan amount (max 999,999)",
+            "title": "Amount"
+          },
+          "billing_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionBillingType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Billing mode; inherited from the plan when omitted (defaults to PREPAID for ad-hoc subscriptions)"
+          },
+          "currency": {
+            "default": "BDT",
+            "description": "Currency code",
+            "maxLength": 3,
+            "title": "Currency",
+            "type": "string"
+          },
+          "customer": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Customer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Customer information (will be created or fetched)"
+          },
+          "customer_uuid": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Public uuid of an existing customer of this merchant",
+            "title": "Customer Uuid"
+          },
+          "interval_count": {
+            "anyOf": [
+              {
+                "maximum": 365,
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override plan interval count",
+            "title": "Interval Count"
+          },
+          "interval_unit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionIntervalUnit"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override plan interval unit"
+          },
+          "invoice_lead_days": {
+            "anyOf": [
+              {
+                "maximum": 364,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Invoice lead time in days; inherited from the plan when omitted (defaults to 0)",
+            "title": "Invoice Lead Days"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional metadata",
+            "title": "Meta Data"
+          },
+          "subscription_plan_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Plan ID (optional, can specify inline)",
+            "title": "Subscription Plan Id"
+          },
+          "trial_period_days": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override plan trial period",
+            "title": "Trial Period Days"
+          }
+        },
+        "title": "SubscriptionCreate",
+        "type": "object"
+      },
+      "SubscriptionIntervalUnit": {
+        "description": "Interval unit for subscription billing",
+        "enum": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "YEAR"
+        ],
+        "title": "SubscriptionIntervalUnit",
+        "type": "string"
+      },
+      "SubscriptionPlanCreate": {
+        "description": "Schema for creating a subscription plan",
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 999999.9999,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "description": "Subscription amount (max 999,999)",
+            "title": "Amount"
+          },
+          "billing_type": {
+            "$ref": "#/components/schemas/SubscriptionBillingType",
+            "default": "PREPAID",
+            "description": "PREPAID = pay upfront for the upcoming period; POSTPAID = bill in arrears at period end"
+          },
+          "cancel_immediately_on_failure": {
+            "default": false,
+            "title": "Cancel Immediately On Failure",
+            "type": "boolean"
+          },
+          "currency": {
+            "default": "BDT",
+            "description": "Currency code",
+            "maxLength": 3,
+            "title": "Currency",
+            "type": "string"
+          },
+          "interval_count": {
+            "description": "Number of interval units",
+            "maximum": 365,
+            "minimum": 1,
+            "title": "Interval Count",
+            "type": "integer"
+          },
+          "interval_unit": {
+            "$ref": "#/components/schemas/SubscriptionIntervalUnit",
+            "description": "Interval unit"
+          },
+          "invoice_lead_days": {
+            "default": 0,
+            "description": "Days before the billing date to generate/send the invoice (must be shorter than the billing interval); 0 = on the billing date",
+            "maximum": 364,
+            "minimum": 0,
+            "title": "Invoice Lead Days",
+            "type": "integer"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional metadata",
+            "title": "Meta Data"
+          },
+          "past_due_grace_days": {
+            "default": 7,
+            "maximum": 365,
+            "minimum": 0,
+            "title": "Past Due Grace Days",
+            "type": "integer"
+          },
+          "past_due_warnings_enabled": {
+            "default": true,
+            "title": "Past Due Warnings Enabled",
+            "type": "boolean"
+          },
+          "plan_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Plan description",
+            "title": "Plan Description"
+          },
+          "plan_name": {
+            "description": "Plan name",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Plan Name",
+            "type": "string"
+          },
+          "trial_amount": {
+            "anyOf": [
+              {
+                "maximum": 999999.9999,
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Trial amount (null for free trial, max 999,999)",
+            "title": "Trial Amount"
+          },
+          "trial_notifications_enabled": {
+            "default": true,
+            "title": "Trial Notifications Enabled",
+            "type": "boolean"
+          },
+          "trial_period_days": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Trial period in days",
+            "title": "Trial Period Days"
+          }
+        },
+        "required": [
+          "plan_name",
+          "amount",
+          "interval_count",
+          "interval_unit"
+        ],
+        "title": "SubscriptionPlanCreate",
+        "type": "object"
+      },
+      "SubscriptionPlanResponse": {
+        "description": "Schema for subscription plan response",
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "billing_type": {
+            "title": "Billing Type",
+            "type": "string"
+          },
+          "cancel_immediately_on_failure": {
+            "title": "Cancel Immediately On Failure",
+            "type": "boolean"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "interval_count": {
+            "title": "Interval Count",
+            "type": "integer"
+          },
+          "interval_unit": {
+            "title": "Interval Unit",
+            "type": "string"
+          },
+          "invoice_lead_days": {
+            "title": "Invoice Lead Days",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "merchant_id": {
+            "title": "Merchant Id",
+            "type": "integer"
+          },
+          "merchant_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Merchant Name"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          },
+          "past_due_grace_days": {
+            "title": "Past Due Grace Days",
+            "type": "integer"
+          },
+          "past_due_warnings_enabled": {
+            "title": "Past Due Warnings Enabled",
+            "type": "boolean"
+          },
+          "plan_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Description"
+          },
+          "plan_name": {
+            "title": "Plan Name",
+            "type": "string"
+          },
+          "trial_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Amount"
+          },
+          "trial_notifications_enabled": {
+            "title": "Trial Notifications Enabled",
+            "type": "boolean"
+          },
+          "trial_period_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Period Days"
+          },
+          "uuid": {
+            "title": "Uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "merchant_id",
+          "plan_name",
+          "plan_description",
+          "amount",
+          "currency",
+          "interval_count",
+          "interval_unit",
+          "billing_type",
+          "invoice_lead_days",
+          "trial_period_days",
+          "trial_amount",
+          "meta_data",
+          "is_active",
+          "trial_notifications_enabled",
+          "past_due_warnings_enabled",
+          "cancel_immediately_on_failure",
+          "past_due_grace_days",
+          "created_at"
+        ],
+        "title": "SubscriptionPlanResponse",
+        "type": "object"
+      },
+      "SubscriptionPlanUpdate": {
+        "description": "Schema for updating a subscription plan",
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 999999.9999,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount"
+          },
+          "billing_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionBillingType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cancel_immediately_on_failure": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Immediately On Failure"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "maxLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "interval_count": {
+            "anyOf": [
+              {
+                "maximum": 365,
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Count"
+          },
+          "interval_unit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionIntervalUnit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "invoice_lead_days": {
+            "anyOf": [
+              {
+                "maximum": 364,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Lead Days"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          },
+          "past_due_grace_days": {
+            "anyOf": [
+              {
+                "maximum": 365,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Past Due Grace Days"
+          },
+          "past_due_warnings_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Past Due Warnings Enabled"
+          },
+          "plan_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Description"
+          },
+          "plan_name": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Name"
+          },
+          "trial_amount": {
+            "anyOf": [
+              {
+                "maximum": 999999.9999,
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Amount"
+          },
+          "trial_notifications_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Notifications Enabled"
+          },
+          "trial_period_days": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Period Days"
+          }
+        },
+        "title": "SubscriptionPlanUpdate",
+        "type": "object"
+      },
+      "SubscriptionResponse": {
+        "description": "Schema for subscription response",
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "billing_cycle_count": {
+            "title": "Billing Cycle Count",
+            "type": "integer"
+          },
+          "billing_type": {
+            "title": "Billing Type",
+            "type": "string"
+          },
+          "cancellation_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancellation Reason"
+          },
+          "cancelled_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled At"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "current_period_end": {
+            "title": "Current Period End",
+            "type": "string"
+          },
+          "current_period_start": {
+            "title": "Current Period Start",
+            "type": "string"
+          },
+          "customer": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CustomerBasicInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "customer_id": {
+            "title": "Customer Id",
+            "type": "integer"
+          },
+          "days_until_trial_end": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Calculate days remaining in trial period",
+            "readOnly": true,
+            "title": "Days Until Trial End"
+          },
+          "failed_payment_count": {
+            "title": "Failed Payment Count",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "interval_count": {
+            "title": "Interval Count",
+            "type": "integer"
+          },
+          "interval_unit": {
+            "title": "Interval Unit",
+            "type": "string"
+          },
+          "invoice_lead_days": {
+            "title": "Invoice Lead Days",
+            "type": "integer"
+          },
+          "is_in_trial": {
+            "description": "Check if subscription is currently in trial period",
+            "readOnly": true,
+            "title": "Is In Trial",
+            "type": "boolean"
+          },
+          "is_simulation": {
+            "description": "True when this subscription belongs to a simulation (test) clock.",
+            "readOnly": true,
+            "title": "Is Simulation",
+            "type": "boolean"
+          },
+          "merchant_id": {
+            "title": "Merchant Id",
+            "type": "integer"
+          },
+          "merchant_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Merchant Name"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          },
+          "next_billing_date": {
+            "title": "Next Billing Date",
+            "type": "string"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionPlanResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "simulation_clock_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Simulation Clock Id"
+          },
+          "simulation_clock_uuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Simulation Clock Uuid"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "subscription_plan_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subscription Plan Id"
+          },
+          "trial_end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial End Date"
+          },
+          "uuid": {
+            "title": "Uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "merchant_id",
+          "customer_id",
+          "subscription_plan_id",
+          "status",
+          "amount",
+          "currency",
+          "interval_count",
+          "interval_unit",
+          "billing_type",
+          "invoice_lead_days",
+          "trial_end_date",
+          "current_period_start",
+          "current_period_end",
+          "next_billing_date",
+          "cancelled_at",
+          "cancellation_reason",
+          "meta_data",
+          "billing_cycle_count",
+          "failed_payment_count",
+          "created_at",
+          "is_simulation",
+          "is_in_trial",
+          "days_until_trial_end"
+        ],
+        "title": "SubscriptionResponse",
+        "type": "object"
+      },
+      "SubscriptionUpdate": {
+        "description": "Schema for updating a subscription",
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 999999.9999,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Update amount for next billing (max 999,999)",
+            "title": "Amount"
+          },
+          "interval_count": {
+            "anyOf": [
+              {
+                "maximum": 365,
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Count"
+          },
+          "interval_unit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionIntervalUnit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "title": "SubscriptionUpdate",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VerificationResponse": {
+        "properties": {
+          "amount": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Amount",
+            "type": "string"
+          },
+          "charge_amount": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Charge Amount",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "payment_method": {
+            "title": "Payment Method",
+            "type": "string"
+          },
+          "payment_reference_id": {
+            "title": "Payment Reference Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "transaction_id": {
+            "title": "Transaction Id",
+            "type": "string"
+          },
+          "verified": {
+            "title": "Verified",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "transaction_id",
+          "order_id",
+          "verified",
+          "status",
+          "amount",
+          "currency",
+          "charge_amount",
+          "payment_method",
+          "payment_reference_id",
+          "customer"
+        ],
+        "title": "VerificationResponse",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "MerchantApiKey": {
+        "description": "Sandbox merchant API key. Live keys are rejected.",
+        "in": "header",
+        "name": "X-Merchant-API-Key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "Backend-derived merchant integration contract. Interactive execution is supported only against the sandbox environment.",
+    "title": "Moneybag Public Payment API",
+    "version": "2.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v2/payments/checkout": {
+      "post": {
+        "description": "Checkout API\n\nThis endpoint initiates the payment process for a merchant order.\nIt creates a payment session, processes the initial payment request,\nand returns a redirect URL to the payment gateway.\n\nThe merchant must provide a valid API key in the X-Merchant-API-Key header.\n\nArgs:\n    order_req: Order request data\n    merchant_key: Merchant API key info\nReturns:\n    CheckoutResponse: Response with checkout details and redirect URL\n\nRaises:\n    HTTPException: For any validation or processing errors",
+        "operationId": "checkout_api_v2_payments_checkout_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponses"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Checkout",
+        "tags": [
+          "Payment Checkout"
+        ]
+      }
+    },
+    "/api/v2/payments/emi-amounts": {
+      "post": {
+        "description": "Calculate available EMI options with complete charge breakdown for a given order amount. Optionally filter by specific EMI configuration IDs.",
+        "operationId": "calculate_emi_amounts_api_v2_payments_emi_amounts_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EMICalculateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EMICalculateResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Calculate EMI Options with Charges",
+        "tags": [
+          "EMI"
+        ]
+      }
+    },
+    "/api/v2/payments/emi-options": {
+      "get": {
+        "description": "Get available EMI options for a specific merchant. This is a customer-facing API.",
+        "operationId": "get_emi_options_api_v2_payments_emi_options_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EMIOptionsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Get Available EMI Options",
+        "tags": [
+          "EMI"
+        ]
+      }
+    },
+    "/api/v2/payments/subscription-plans": {
+      "get": {
+        "description": "List subscription plans for the authenticated merchant.\n\nArgs:\n    merchant_key: Merchant API key info\n    include_inactive: Include archived plans\n    page: Page number\n    per_page: Results per page\n\nReturns:\n    dict: Paginated list of subscription plans",
+        "operationId": "list_subscription_plans_api_v2_payments_subscription_plans_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "include_inactive",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Include Inactive",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Per Page",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSubscriptionPlanListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "List Subscription Plans",
+        "tags": [
+          "Subscription Payments"
+        ]
+      },
+      "post": {
+        "description": "Create a new subscription plan.\n\nThis endpoint allows merchants to create recurring payment plans that customers can subscribe to.\n\nArgs:\n    payload: Subscription plan data\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionPlanResponse: Created subscription plan",
+        "operationId": "create_subscription_plan_api_v2_payments_subscription_plans_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionPlanCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Create Subscription Plan",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscription-plans/{plan_id}": {
+      "delete": {
+        "description": "Archive a subscription plan.\n\nArgs:\n    plan_id: ID of the subscription plan\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionPlanResponse: Archived subscription plan",
+        "operationId": "archive_subscription_plan_api_v2_payments_subscription_plans__plan_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "plan_id",
+            "required": true,
+            "schema": {
+              "title": "Plan Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Archive Subscription Plan",
+        "tags": [
+          "Subscription Payments"
+        ]
+      },
+      "get": {
+        "description": "Get subscription plan details.\n\nArgs:\n    plan_id: ID of the subscription plan\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionPlanResponse: Subscription plan details",
+        "operationId": "get_subscription_plan_api_v2_payments_subscription_plans__plan_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "plan_id",
+            "required": true,
+            "schema": {
+              "title": "Plan Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Get Subscription Plan",
+        "tags": [
+          "Subscription Payments"
+        ]
+      },
+      "patch": {
+        "description": "Update subscription plan.\n\nArgs:\n    plan_id: ID of the subscription plan\n    payload: Update data\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionPlanResponse: Updated subscription plan",
+        "operationId": "update_subscription_plan_api_v2_payments_subscription_plans__plan_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "plan_id",
+            "required": true,
+            "schema": {
+              "title": "Plan Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionPlanUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Update Subscription Plan",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscription-plans/{plan_id}/restore": {
+      "post": {
+        "description": "Restore an archived subscription plan.\n\nArgs:\n    plan_id: ID of the subscription plan\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionPlanResponse: Restored subscription plan",
+        "operationId": "restore_subscription_plan_api_v2_payments_subscription_plans__plan_id__restore_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "plan_id",
+            "required": true,
+            "schema": {
+              "title": "Plan Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Restore Subscription Plan",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions": {
+      "get": {
+        "description": "List subscriptions for the authenticated merchant.\n\nArgs:\n    merchant_key: Merchant API key info\n    customer_uuid: Filter by customer uuid (must be a customer of this merchant)\n    subscription_status: Filter by status (TRIALING, ACTIVE, PAST_DUE, PAUSED, CANCELLED, EXPIRED)\n    page: Page number\n    per_page: Results per page\n\nReturns:\n    dict: Paginated list of subscriptions",
+        "operationId": "list_subscriptions_api_v2_payments_subscriptions_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "customer_uuid",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Customer Uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "subscription_status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Subscription Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Per Page",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSubscriptionListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "List Subscriptions",
+        "tags": [
+          "Subscription Payments"
+        ]
+      },
+      "post": {
+        "description": "Create a new subscription for a customer.\n\nThis endpoint creates a recurring payment subscription. You can provide either:\n- customer object: Customer will be get-or-created using phone/email (same as checkout API)\n- customer_uuid: Use an existing customer of yours, by public uuid\n\nIf a trial period is configured, the subscription will start in TRIALING status.\nOtherwise, it will start as PENDING and require immediate payment.\n\nArgs:\n    payload: Subscription data with customer information\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Created subscription",
+        "operationId": "create_subscription_api_v2_payments_subscriptions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Create Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}": {
+      "get": {
+        "description": "Get subscription details by UUID.\n\nArgs:\n    subscription_id: UUID of the subscription\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Subscription details",
+        "operationId": "get_subscription_api_v2_payments_subscriptions__subscription_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Get Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      },
+      "patch": {
+        "description": "Update subscription details.\n\nArgs:\n    subscription_id: UUID of the subscription\n    payload: Update data\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Updated subscription",
+        "operationId": "update_subscription_api_v2_payments_subscriptions__subscription_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Update Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/billing-history": {
+      "get": {
+        "description": "Get billing history for a subscription.\n\nArgs:\n    subscription_id: UUID of the subscription\n    merchant_key: Merchant API key info\n    page: Page number\n    per_page: Results per page\n\nReturns:\n    dict: Paginated billing history",
+        "operationId": "get_subscription_billing_history_api_v2_payments_subscriptions__subscription_id__billing_history_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Per Page",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicBillingHistoryListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Get Subscription Billing History",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/cancel": {
+      "post": {
+        "description": "Cancel a subscription.\n\nArgs:\n    subscription_id: UUID of the subscription\n    payload: Cancellation data (reason, cancel_at_period_end)\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Cancelled subscription",
+        "operationId": "cancel_subscription_api_v2_payments_subscriptions__subscription_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionCancelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Cancel Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/checkout": {
+      "post": {
+        "description": "Create a checkout session for a subscription payment.\n\nThis endpoint creates a direct payment checkout session for a subscription, allowing\ncustomers to pay for the subscription amount immediately. This is useful for:\n- Collecting payment when trial period ends\n- Resuming paused subscriptions with payment\n- Retrying failed payments with new checkout\n- Manual billing with direct customer payment\n\nThe subscription must be in a valid state (ACTIVE, PAST_DUE, PAUSED, or TRIALING ending soon).\nA payment session will be created and the customer can complete payment via the checkout URL.\n\nArgs:\n    subscription_id: UUID of the subscription\n    payload: Checkout configuration (redirect URLs, etc.)\n    merchant_key: Merchant API key info\n\nReturns:\n    CheckoutResponse: Checkout URL and session details\n\nRaises:\n    400: If subscription is not in a valid state for checkout\n    404: If subscription not found",
+        "operationId": "create_subscription_checkout_api_v2_payments_subscriptions__subscription_id__checkout_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionCheckoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponses"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Create Subscription Checkout",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/generate-invoice": {
+      "post": {
+        "description": "Manually generate an invoice for a subscription.\n\nThis endpoint allows merchants to manually trigger invoice generation for a subscription.\nUseful when payment fails and you want to send a new invoice immediately instead of\nwaiting for automatic retry.\n\nThe invoice will be created with the current subscription amount and billing period,\nand an email will be automatically sent to the customer with payment link.\n\nArgs:\n    subscription_id: UUID of the subscription\n    merchant_key: Merchant API key info\n\nReturns:\n    InvoiceDetailsResponse: Created invoice details\n\nRaises:\n    400: If subscription is not in a valid state for billing\n    404: If subscription not found",
+        "operationId": "generate_subscription_invoice_api_v2_payments_subscriptions__subscription_id__generate_invoice_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceDetailsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Generate Subscription Invoice",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/pause": {
+      "post": {
+        "description": "Pause a subscription.\n\nArgs:\n    subscription_id: UUID of the subscription\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Paused subscription",
+        "operationId": "pause_subscription_api_v2_payments_subscriptions__subscription_id__pause_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Pause Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/subscriptions/{subscription_id}/resume": {
+      "post": {
+        "description": "Resume a paused subscription.\n\nArgs:\n    subscription_id: UUID of the subscription\n    merchant_key: Merchant API key info\n\nReturns:\n    SubscriptionResponse: Resumed subscription",
+        "operationId": "resume_subscription_api_v2_payments_subscriptions__subscription_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "title": "Subscription Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Resume Subscription",
+        "tags": [
+          "Subscription Payments"
+        ]
+      }
+    },
+    "/api/v2/payments/verify/{transaction_id}": {
+      "get": {
+        "description": "Verify Payment API\n\nThis endpoint verifies the status of a payment transaction using the transaction ID.\nIt checks the transaction status and returns the result.\n\nArgs:\n    transaction_id: Unique identifier for the payment transaction\n    payment_service: Service for managing payment transactions\n    payment_session: Service for managing payment sessions\n\nReturns:\n    PaymentResponses: Response with payment verification details\n\nRaises:\n    HTTPException: If the transaction doesn't exist or has expired",
+        "operationId": "verify_payment_api_v2_payments_verify__transaction_id__get",
+        "parameters": [
+          {
+            "description": "Transaction ID for the payment",
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "description": "Transaction ID for the payment",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponses"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Verify Payment",
+        "tags": [
+          "Payment Checkout"
+        ]
+      }
+    },
+    "/api/v2/sandbox/payments/simulate/cancel": {
+      "post": {
+        "operationId": "simulate_sandbox_payment_cancel_api_v2_sandbox_payments_simulate_cancel_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SandboxPaymentCancelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SandboxPaymentCancelResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Simulate a cancelled sandbox payment",
+        "tags": [
+          "Sandbox"
+        ]
+      }
+    },
+    "/api/v2/sandbox/payments/simulate/fail": {
+      "post": {
+        "operationId": "simulate_sandbox_payment_fail_api_v2_sandbox_payments_simulate_fail_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SandboxPaymentFailRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SandboxPaymentFailResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Simulate a failed sandbox payment",
+        "tags": [
+          "Sandbox"
+        ]
+      }
+    },
+    "/api/v2/sandbox/payments/simulate/success": {
+      "post": {
+        "operationId": "simulate_sandbox_payment_success_api_v2_sandbox_payments_simulate_success_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SandboxPaymentProcessRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SandboxPaymentProcessResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "MerchantApiKey": []
+          }
+        ],
+        "summary": "Simulate a successful sandbox payment",
+        "tags": [
+          "Sandbox"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Moneybag sandbox",
+      "url": "https://sandbox.api.moneybag.com.bd"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Moneybag Checkout"
+  short_description: "Build secure Moneybag checkout integrations"
+  default_prompt: "Use $moneybag-checkout to implement a sandbox checkout and verification flow."

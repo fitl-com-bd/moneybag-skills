@@ -1,0 +1,4 @@
+interface:
+  display_name: "Moneybag Integration Review"
+  short_description: "Audit Moneybag payment integrations safely"
+  default_prompt: "Use $moneybag-integration-review to audit this Moneybag integration."

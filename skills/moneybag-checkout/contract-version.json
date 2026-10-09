@@ -1,0 +1,13 @@
+{
+  "contractVersion": "2.0.0",
+  "contractDigest": "34dbfe060318e05a382654a81a660e816a3402d568091a0f9fba28e9bbe15a9e",
+  "reviewedAt": "2026-09-16",
+  "files": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "references/contract.md",
+    "references/security.md",
+    "contract-version.json",
+    "references/moneybag-public.json"
+  ]
+}

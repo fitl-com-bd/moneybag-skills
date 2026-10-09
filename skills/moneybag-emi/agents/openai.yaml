@@ -1,0 +1,4 @@
+interface:
+  display_name: "Moneybag EMI"
+  short_description: "Build and review safe EMI payment flows"
+  default_prompt: "Use $moneybag-emi to implement a secure EMI payment flow."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Moneybag Webhooks"
+  short_description: "Verify and process Moneybag webhooks safely"
+  default_prompt: "Use $moneybag-webhooks to implement an idempotent Moneybag webhook receiver."

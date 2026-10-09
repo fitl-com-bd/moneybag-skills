@@ -1,0 +1,4 @@
+interface:
+  display_name: "Moneybag Subscriptions"
+  short_description: "Build secure Moneybag recurring payments"
+  default_prompt: "Use $moneybag-subscriptions to implement and validate a Moneybag subscription integration."
